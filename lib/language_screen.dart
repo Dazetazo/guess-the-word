@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'theme_state.dart';
 import 'main_menu.dart';
+import 'ad_banner.dart';
 
 class LanguageScreen extends StatelessWidget {
   const LanguageScreen({super.key});
@@ -17,64 +18,71 @@ class LanguageScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: bgColor,
           body: SafeArea(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'WORDLE',
-                    style: TextStyle(
-                      fontSize: 56,
-                      fontWeight: FontWeight.bold,
-                      color: textColor,
-                      letterSpacing: 6,
+            child: Column(
+              children: [
+                Expanded(
+                  child: Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'WORDLE',
+                          style: TextStyle(
+                            fontSize: 56,
+                            fontWeight: FontWeight.bold,
+                            color: textColor,
+                            letterSpacing: 6,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        Text(
+                          'Elige tu idioma',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: subtitleColor,
+                          ),
+                        ),
+                        const SizedBox(height: 60),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            _LanguageButton(
+                              flag: '🇺🇸',
+                              label: 'English',
+                              color: const Color(0xFF0984E3),
+                              isDark: isDark,
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainMenu(language: 'en'),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(width: 32),
+                            _LanguageButton(
+                              flag: '🇪🇸',
+                              label: 'Español',
+                              color: const Color(0xFFE17055),
+                              isDark: isDark,
+                              onTap: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const MainMenu(language: 'es'),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Elige tu idioma',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: subtitleColor,
-                    ),
-                  ),
-                  const SizedBox(height: 60),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _LanguageButton(
-                        flag: '🇺🇸',
-                        label: 'English',
-                        color: const Color(0xFF0984E3),
-                        isDark: isDark,
-                        onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainMenu(language: 'en'),
-                            ),
-                          );
-                        },
-                      ),
-                      const SizedBox(width: 32),
-                      _LanguageButton(
-                        flag: '🇪🇸',
-                        label: 'Español',
-                        color: const Color(0xFFE17055),
-                        isDark: isDark,
-                        onTap: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const MainMenu(language: 'es'),
-                            ),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                const BannerAdWidget(),
+              ],
             ),
           ),
         );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'history_storage.dart';
 import 'theme_state.dart';
 import 'categories.dart';
+import 'ad_banner.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -129,119 +130,128 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 ),
             ],
           ),
-          body: _isLoading
-              ? Center(child: CircularProgressIndicator(color: textColor))
-              : _history.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.history,
-                            size: 80,
-                            color: subtitleColor,
-                          ),
-                          const SizedBox(height: 16),
-                          Text(
-                            'No words guessed yet',
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: subtitleColor,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Win a game to see your history',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: subtitleColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    )
-                  : ListView.builder(
-                      padding: const EdgeInsets.all(16),
-                      itemCount: _history.length,
-                      itemBuilder: (context, index) {
-                        final entry = _history[index];
-                        final categoryColor = _getCategoryColor(entry.category);
-                        final categoryName = _getCategoryName(entry.category, entry.language);
-                        final categoryIcon = _getCategoryIcon(entry.category);
-                        
-                        return Container(
-                          margin: const EdgeInsets.only(bottom: 12),
-                          padding: const EdgeInsets.all(16),
-                          decoration: BoxDecoration(
-                            color: cardBg,
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: categoryColor.withValues(alpha: 0.3),
-                              width: 1,
-                            ),
-                          ),
-                          child: Row(
-                            children: [
-                              Container(
-                                width: 48,
-                                height: 48,
-                                decoration: BoxDecoration(
-                                  color: categoryColor.withValues(alpha: 0.2),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  categoryIcon,
-                                  color: categoryColor,
-                                  size: 24,
-                                ),
-                              ),
-                              const SizedBox(width: 16),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      entry.word,
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.bold,
-                                        color: textColor,
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      '$categoryName · ${entry.attempts}/6 attempts',
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: subtitleColor,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: _isLoading
+                      ? Center(child: CircularProgressIndicator(color: textColor))
+                      : _history.isEmpty
+                          ? Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(
-                                    Icons.star,
-                                    color: Colors.amber,
-                                    size: 20,
+                                    Icons.history,
+                                    size: 80,
+                                    color: subtitleColor,
                                   ),
-                                  const SizedBox(height: 4),
+                                  const SizedBox(height: 16),
                                   Text(
-                                    _formatDate(entry.date),
+                                    'No words guessed yet',
                                     style: TextStyle(
-                                      fontSize: 12,
+                                      fontSize: 18,
+                                      color: subtitleColor,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    'Win a game to see your history',
+                                    style: TextStyle(
+                                      fontSize: 14,
                                       color: subtitleColor,
                                     ),
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
-                        );
-                      },
-                    ),
+                            )
+                          : ListView.builder(
+                              padding: const EdgeInsets.all(16),
+                              itemCount: _history.length,
+                              itemBuilder: (context, index) {
+                                final entry = _history[index];
+                                final categoryColor = _getCategoryColor(entry.category);
+                                final categoryName = _getCategoryName(entry.category, entry.language);
+                                final categoryIcon = _getCategoryIcon(entry.category);
+                                
+                                return Container(
+                                  margin: const EdgeInsets.only(bottom: 12),
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    color: cardBg,
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: categoryColor.withValues(alpha: 0.3),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        width: 48,
+                                        height: 48,
+                                        decoration: BoxDecoration(
+                                          color: categoryColor.withValues(alpha: 0.2),
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Icon(
+                                          categoryIcon,
+                                          color: categoryColor,
+                                          size: 24,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 16),
+                                      Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              entry.word,
+                                              style: TextStyle(
+                                                fontSize: 20,
+                                                fontWeight: FontWeight.bold,
+                                                color: textColor,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text(
+                                              '$categoryName · ${entry.attempts}/6 attempts',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                color: subtitleColor,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                            size: 20,
+                                          ),
+                                          const SizedBox(height: 4),
+                                          Text(
+                                            _formatDate(entry.date),
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: subtitleColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                ),
+                const BannerAdWidget(),
+              ],
+            ),
+          ),
         );
       },
     );

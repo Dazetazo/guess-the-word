@@ -6,6 +6,7 @@ import 'keyboard.dart';
 import 'theme_state.dart';
 import 'history_storage.dart';
 import 'daily_limit.dart';
+import 'ad_banner.dart';
 
 class WordleGame extends StatefulWidget {
   final WordleCategory category;
@@ -423,6 +424,7 @@ class _WordleGameState extends State<WordleGame> {
                   isDark: isDark,
                 ),
                 const SizedBox(height: 20),
+                const BannerAdWidget(),
               ],
             ),
           ),

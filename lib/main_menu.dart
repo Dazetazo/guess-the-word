@@ -4,6 +4,7 @@ import 'theme_state.dart';
 import 'wordle_game.dart';
 import 'history_screen.dart';
 import 'daily_limit.dart';
+import 'ad_banner.dart';
 
 class MainMenu extends StatefulWidget {
   final String language;
@@ -151,6 +152,7 @@ class _MainMenuState extends State<MainMenu> {
                     ),
                   ),
                 ),
+                const BannerAdWidget(),
               ],
             ),
           ),
