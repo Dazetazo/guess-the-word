@@ -29,7 +29,6 @@ class _WordleGameState extends State<WordleGame> {
   @override
   void initState() {
     super.initState();
-    DailyLimitStorage.recordPlay(widget.category.id);
     _gameLogic = GameLogic(wordList: widget.category.getWords(widget.language));
     _startNewGame();
   }
@@ -112,6 +111,7 @@ class _WordleGameState extends State<WordleGame> {
   }
   
   void _showGameOverDialog(bool isDark) {
+    DailyLimitStorage.recordPlay(widget.category.id);
     final dialogBg = isDark ? Colors.grey[900] : Colors.grey[100];
     final textColor = isDark ? Colors.white : Colors.black87;
     final isEs = widget.language == 'es';

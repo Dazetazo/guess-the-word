@@ -38,4 +38,10 @@ class DailyLimitStorage {
     final data = await _loadData();
     return data[categoryId];
   }
+  
+  static Future<void> clearPlay(String categoryId) async {
+    final data = await _loadData();
+    data.remove(categoryId);
+    await _saveData(data);
+  }
 }

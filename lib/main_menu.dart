@@ -5,6 +5,7 @@ import 'wordle_game.dart';
 import 'history_screen.dart';
 import 'daily_limit.dart';
 import 'ad_banner.dart';
+import 'rewarded_ad.dart';
 
 class MainMenu extends StatefulWidget {
   final String language;
@@ -124,17 +125,7 @@ class _MainMenuState extends State<MainMenu> {
                           isEs: isEs,
                           onTap: () {
                             if (isPlayed) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                    isEs
-                                        ? 'Ya jugaste esta categoría hoy. Vuelve mañana.'
-                                        : 'You already played this category today. Come back tomorrow.',
-                                  ),
-                                  duration: const Duration(seconds: 2),
-                                  backgroundColor: const Color(0xFFE17055),
-                                ),
-                              );
+                              _showUnlockDialog(context, category, isEs);
                               return;
                             }
                             Navigator.push(
@@ -158,6 +149,50 @@ class _MainMenuState extends State<MainMenu> {
           ),
         );
       },
+    );
+  }
+
+  void _showUnlockDialog(BuildContext context, WordleCategory category, bool isEs) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(isEs ? 'Límite diario' : 'Daily limit'),
+        content: Text(
+          isEs
+              ? 'Ya jugaste esta categoría hoy. ¿Quieres ver un anuncio para desbloquearla y jugar otra palabra?'
+              : 'You already played this category today. Want to watch an ad to unlock it and play another word?',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(isEs ? 'Cancelar' : 'Cancel'),
+          ),
+          TextButton(
+            onPressed: () async {
+              Navigator.of(ctx).pop();
+              final rewarded = await RewardedAdManager.showAd(ctx);
+              if (!rewarded) return;
+              if (!ctx.mounted) return;
+              await DailyLimitStorage.clearPlay(category.id);
+              await _loadDailyLimits();
+              if (!ctx.mounted) return;
+              Navigator.push(
+                ctx,
+                MaterialPageRoute(
+                  builder: (context) => WordleGame(
+                    category: category,
+                    language: widget.language,
+                  ),
+                ),
+              ).then((_) => _loadDailyLimits());
+            },
+            child: Text(
+              isEs ? 'Ver anuncio' : 'Watch ad',
+              style: const TextStyle(color: Colors.amber),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
