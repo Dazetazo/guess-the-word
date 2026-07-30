@@ -170,14 +170,14 @@ class _MainMenuState extends State<MainMenu> {
           TextButton(
             onPressed: () async {
               Navigator.of(ctx).pop();
-              final rewarded = await RewardedAdManager.showAd(ctx);
+              final rewarded = await RewardedAdManager.showAd();
               if (!rewarded) return;
-              if (!ctx.mounted) return;
+              if (!context.mounted) return;
               await DailyLimitStorage.clearPlay(category.id);
               await _loadDailyLimits();
-              if (!ctx.mounted) return;
+              if (!context.mounted) return;
               Navigator.push(
-                ctx,
+                context,
                 MaterialPageRoute(
                   builder: (context) => WordleGame(
                     category: category,
@@ -218,7 +218,7 @@ class _CategoryCard extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    final opacity = isPlayedToday ? 0.4 : 1.0;
+    final opacity = isPlayedToday ? 0.6 : 1.0;
     
     return GestureDetector(
       onTap: onTap,
@@ -259,13 +259,13 @@ class _CategoryCard extends StatelessWidget {
                       width: 72,
                       height: 72,
                       decoration: BoxDecoration(
-                        color: Colors.black.withValues(alpha: 0.5),
+                        color: Colors.black.withValues(alpha: 0.3),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
-                        Icons.lock,
-                        size: 32,
-                        color: Colors.white,
+                        Icons.play_arrow,
+                        size: 36,
+                        color: Colors.amber,
                       ),
                     ),
                 ],
@@ -306,15 +306,26 @@ class _CategoryCard extends StatelessWidget {
                 ),
                 child: Text(
                   isPlayedToday
-                      ? (isEs ? '🔒 Cerrado' : '🔒 Locked')
+                      ? (isEs ? '🔒 Ver anuncio' : '🔒 Watch ad')
                       : '${category.getWords(lang).length} ${lang == 'es' ? 'palabras' : 'words'}',
                   style: TextStyle(
                     fontSize: 11,
-                    color: isPlayedToday ? Colors.grey : category.color,
+                    color: isPlayedToday ? Colors.amber : category.color,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
+              if (isPlayedToday)
+                Padding(
+                  padding: const EdgeInsets.only(top: 6),
+                  child: Text(
+                    isEs ? 'Toca para desbloquear' : 'Tap to unlock',
+                    style: TextStyle(
+                      fontSize: 10,
+                      color: Colors.amber.withValues(alpha: 0.7),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class RewardedAdManager {
@@ -29,7 +28,7 @@ class RewardedAdManager {
     );
   }
 
-  static Future<bool> showAd(BuildContext context) async {
+  static Future<bool> showAd() async {
     if (_rewardedAd == null) {
       final completer = Completer<bool>();
       _loadAd(onLoaded: () {
