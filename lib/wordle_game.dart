@@ -202,8 +202,8 @@ class _WordleGameState extends State<WordleGame> {
     return LayoutBuilder(
       builder: (context, constraints) {
         final screenWidth = constraints.maxWidth;
-        final tileSize = (screenWidth - 40) / _gameLogic.wordLength;
-        final clampedSize = tileSize.clamp(30.0, 65.0);
+        final tileSize = (screenWidth - 40) / (_gameLogic.wordLength * 1.134);
+        final clampedSize = tileSize.clamp(22.0, 65.0);
         
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
