@@ -85,7 +85,7 @@ class _MainMenuState extends State<MainMenu> {
               children: [
                 const SizedBox(height: 20),
                 Text(
-                  'WORDLE',
+                  'WORDMIX',
                   style: TextStyle(
                     fontSize: 48,
                     fontWeight: FontWeight.bold,

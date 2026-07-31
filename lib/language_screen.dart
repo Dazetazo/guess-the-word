@@ -26,7 +26,7 @@ class LanguageScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'WORDLE',
+                          'WORDMIX',
                           style: TextStyle(
                             fontSize: 56,
                             fontWeight: FontWeight.bold,
