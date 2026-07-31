@@ -52,7 +52,7 @@ class LanguageScreen extends StatelessWidget {
                               color: const Color(0xFF0984E3),
                               isDark: isDark,
                               onTap: () {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => const MainMenu(language: 'en'),
@@ -67,7 +67,7 @@ class LanguageScreen extends StatelessWidget {
                               color: const Color(0xFFE17055),
                               isDark: isDark,
                               onTap: () {
-                                Navigator.pushReplacement(
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => const MainMenu(language: 'es'),
