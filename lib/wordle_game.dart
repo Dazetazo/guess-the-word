@@ -7,6 +7,7 @@ import 'theme_state.dart';
 import 'history_storage.dart';
 import 'daily_limit.dart';
 import 'ad_banner.dart';
+import 'dictionary.dart';
 
 class WordleGame extends StatefulWidget {
   final WordleCategory category;
@@ -29,13 +30,19 @@ class _WordleGameState extends State<WordleGame> {
   @override
   void initState() {
     super.initState();
-    _gameLogic = GameLogic(wordList: widget.category.getWords(widget.language));
+    _gameLogic = GameLogic(
+      wordList: widget.category.getWords(widget.language),
+      dictionary: widget.language == 'es' ? WordDictionary.spanish : WordDictionary.english,
+    );
     _startNewGame();
   }
   
   void _startNewGame() {
     setState(() {
-      _gameLogic.resetGame(wordList: widget.category.getWords(widget.language));
+      _gameLogic.resetGame(
+        wordList: widget.category.getWords(widget.language),
+        dictionary: widget.language == 'es' ? WordDictionary.spanish : WordDictionary.english,
+      );
       _currentGuess = '';
       _showInvalidWordMessage = false;
       _showInvalidWordLengthMessage = false;

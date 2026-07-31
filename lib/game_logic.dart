@@ -8,6 +8,7 @@ class GameLogic {
   late String _targetWord;
   late int _wordLength;
   late List<String> _wordList;
+  late Set<String>? _dictionary;
   List<String> _guesses = [];
   List<List<LetterState>> _letterStates = [];
   int _currentAttempt = 0;
@@ -15,8 +16,9 @@ class GameLogic {
   bool _hasWon = false;
   Map<String, LetterState> _keyboardStates = {};
   
-  GameLogic({List<String>? wordList}) {
+  GameLogic({List<String>? wordList, Set<String>? dictionary}) {
     _wordList = wordList ?? _defaultWordList;
+    _dictionary = dictionary;
     _initGame();
   }
   
@@ -32,9 +34,12 @@ class GameLogic {
     _keyboardStates = {};
   }
   
-  void resetGame({List<String>? wordList}) {
+  void resetGame({List<String>? wordList, Set<String>? dictionary}) {
     if (wordList != null) {
       _wordList = wordList;
+    }
+    if (dictionary != null) {
+      _dictionary = dictionary;
     }
     _initGame();
   }
@@ -49,7 +54,10 @@ class GameLogic {
   Map<String, LetterState> get keyboardStates => _keyboardStates;
   
   bool isValidWord(String word) {
-    return _wordList.contains(word.toUpperCase());
+    final w = word.toUpperCase();
+    if (_wordList.contains(w)) return true;
+    if (_dictionary != null && _dictionary!.contains(w)) return true;
+    return false;
   }
   
   bool submitGuess(String guess) {
