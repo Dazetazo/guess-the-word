@@ -21,7 +21,7 @@ val hasReleaseKeystore = keystorePropertiesFile.exists() && listOf(
 ).all { !keystoreProperties.getProperty(it).isNullOrBlank() }
 
 android {
-    namespace = "com.wordmix.game"
+    namespace = "com.crimsonhounds.wordmix"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -32,7 +32,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.wordmix.game"
+        applicationId = "com.crimsonhounds.wordmix"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
