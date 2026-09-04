@@ -6,11 +6,6 @@ import 'language_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   unawaited(MobileAds.instance.initialize());
-  MobileAds.instance.updateRequestConfiguration(
-    RequestConfiguration(
-      testDeviceIds: ['YOUR_TEST_DEVICE_ID'],
-    ),
-  );
   runApp(const MyApp());
 }
 

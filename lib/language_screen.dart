@@ -20,6 +20,22 @@ class LanguageScreen extends StatelessWidget {
           body: SafeArea(
             child: Column(
               children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8),
+                    child: IconButton(
+                      icon: Icon(
+                        isDark ? Icons.light_mode : Icons.dark_mode,
+                        color: textColor,
+                        size: 28,
+                      ),
+                      onPressed: () {
+                        themeNotifier.value = !themeNotifier.value;
+                      },
+                    ),
+                  ),
+                ),
                 Expanded(
                   child: Center(
                     child: Column(
